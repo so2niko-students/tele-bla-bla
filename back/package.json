@@ -1,0 +1,22 @@
+{
+  "name": "tele-bla-bla",
+  "version": "1.0.0",
+  "description": "clone of telegram... or not",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./main.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "chat"
+  ],
+  "author": "Nick Sotula",
+  "license": "ISC",
+  "dependencies": {
+    "json-file-database": "^2.0.2",
+    "node-telegram-bot-api": "^0.61.0",
+    "nodemon": "^2.0.22"
+  }
+}

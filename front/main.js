@@ -1,4 +1,4 @@
-import data from './settings.js';
+import data from '../settings.js';
 
 const URL = `https://api.telegram.org/bot${data.BOT_TOKEN}/`;
 
