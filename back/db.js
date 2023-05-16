@@ -71,6 +71,31 @@ function getUsers(isFormated = false){
     return isFormated ? formatJSON(usersArr) : usersArr;
 }
 
+function getMessages(){
+    return JSON.stringify(formatMessages(copy(messages.elements)));
+}
+
+function copy(d){
+    return JSON.parse(JSON.stringify(d));
+}
+
+function formatMessages(msgs){
+    const usersDict = formatUsersToDictionary(users);
+    return msgs.map(el => {
+        console.log('before', el.from);
+        el.from = usersDict[el.from];
+        console.log(el.from);
+        return el;
+    });
+}
+
+function formatUsersToDictionary(users){
+    return users.elements.reduce((acc, { id, username, first_name, last_name }) => {
+        acc[id] = `${ username } : ${ first_name } ${ last_name }`;
+        return acc;
+    }, {});
+}
+
 function formatJSON(arr){
     return arr.reduce((acc, el) => (`${ acc }
 ------
@@ -80,9 +105,20 @@ username: ${ el.username },
 `), '');
 }
 
+
+function repairDb(){
+    messages.elements.forEach(el => {
+        if(typeof el.from !== 'number'){
+            el.from  = el.chat;
+        }
+    });
+}
+
 module.exports = {
     addMessage,
     getUsers,
+    getMessages,
+    repairDb,
 };
 // {
 //     message_id: 128,

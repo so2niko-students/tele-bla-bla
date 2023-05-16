@@ -6,14 +6,11 @@ const CHAT_BODY = document.querySelector('.chat-body');
 
 const renderMessages = arr => {
     console.log(arr);
-    CHAT_BODY.innerHTML = arr.reverse().map(({ message, edited_message }) => {
-        if (!message) {
-            message = edited_message;
-        }
+    CHAT_BODY.innerHTML = arr.reverse().map(({ text, date, from }) => {
         return `<tr>
-        <th scope="row">${getDate(message.date)}</th>
-        <td>${getName(message.from)}</td>
-        <td>${getText(message)}</td>
+        <th scope="row">${getDate(date)}</th>
+        <td>${from}</td>
+        <td>${text}</td>
       </tr>`}).join('');
 }
 
@@ -34,8 +31,10 @@ const getText = msg => {
 }
 
 const getDate = date => {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
     const t = new Date(date * 1000);
-    return `${ leadZero(t.getHours()) }:${ leadZero(t.getMinutes()) }`;
+    const dateFormated = t.toLocaleDateString('en-GB', options);
+    return `${ dateFormated }::${ leadZero(t.getHours()) }:${ leadZero(t.getMinutes()) }`;
 }
 
 const leadZero = num => num > 9 ? num : `0${ num }`;
@@ -53,3 +52,12 @@ const leadZero = num => num > 9 ? num : `0${ num }`;
 //             }            
 //         });
 // }, 2000, { update_id : 0 });
+
+function getAllMessages(){
+    fetch('http://localhost:8080/messages').then(r => {
+        console.log(r);
+        return  r.json();
+    }).then(d => renderMessages(d));
+}
+
+getAllMessages();
