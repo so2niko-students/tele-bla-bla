@@ -1,8 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const { addMessage, getUsers } = require('./db');
-// const data = require('../settings');
-// const { BOT_TOKEN } = data;
-const BOT_TOKEN = '6097783040:AAFQdeTbb0zfZsg5_L4UnjbyqotY94NLbSU';
+const http = require('http');
+
+const BOT_TOKEN = '6097783040:AAH8FNzdlD95LQaJ_gUmmmN5uKokem2jsQU';
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
@@ -24,3 +24,9 @@ bot.on('message', (msg) => {
   // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, 'Received your message');
 });
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  console.log('request', Date.now());
+  res.end('Hello World!');
+}).listen(8080);

@@ -40,16 +40,16 @@ const getDate = date => {
 
 const leadZero = num => num > 9 ? num : `0${ num }`;
 
-setInterval((upd) => {
-    fetch(`${URL}getUpdates`)
-        .then(r => r.json())
-        .then((r) => {
-            console.log('re-fetch');
-            const curID = r.result.slice(-1)[0].update_id;
-            if(curID != upd.update_id){
-                renderMessages(r.result);
-                upd.update_id = curID;
-                console.log('re-render');
-            }            
-        });
-}, 2000, { update_id : 0 });
+// setInterval((upd) => {
+//     fetch(`${URL}getUpdates`)
+//         .then(r => r.json())
+//         .then((r) => {
+//             console.log('re-fetch');
+//             const curID = r.result.slice(-1)[0].update_id;
+//             if(curID != upd.update_id){
+//                 renderMessages(r.result);
+//                 upd.update_id = curID;
+//                 console.log('re-render');
+//             }            
+//         });
+// }, 2000, { update_id : 0 });
